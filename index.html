@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora VueJS</title>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+</head>
+<body>
+  <div id="app">
+    <h2>Calculadora Aritmética</h2>
+    <div>
+      <label for="num1">Número 1:</label>
+      <input type="number" v-model="num1" @input="calculate">
+    </div>
+    <div>
+      <label for="num2">Número 2:</label>
+      <input type="number" v-model="num2" @input="calculate">
+    </div>
+    <div>
+      <label for="operation">Operação:</label>
+      <select v-model="operation" @change="calculate">
+        <option value="add">+</option>
+        <option value="subtract">-</option>
+        <option value="multiply">*</option>
+        <option value="divide">/</option>
+      </select>
+    </div>
+    <div>
+      <label for="result">Resultado:</label>
+      <input type="text" :value="result" disabled>
+    </div>
+  </div>
+
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        num1: 0,
+        num2: 0,
+        operation: 'add',
+        result: 0
+      },
+      methods: {
+        calculate: function() {
+          switch (this.operation) {
+            case 'add':
+              this.result = parseFloat(this.num1) + parseFloat(this.num2);
+              break;
+            case 'subtract':
+              this.result = parseFloat(this.num1) - parseFloat(this.num2);
+              break;
+            case 'multiply':
+              this.result = parseFloat(this.num1) * parseFloat(this.num2);
+              break;
+            case 'divide':
+              if (this.num2 != 0) {
+                this.result = parseFloat(this.num1) / parseFloat(this.num2);
+              } else {
+                this.result = 'Erro: Divisão por zero';
+              }
+              break;
+            default:
+              this.result = 'Operação inválida';
+              break;
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>
